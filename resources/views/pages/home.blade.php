@@ -2,6 +2,6 @@
 @section('content')
 
     <h3>videogames:</h3>
-    <videogame-component></videogame-component>
+    <videogame-component authorized = {{Auth::check()}}></videogame-component>
 
 @endsection

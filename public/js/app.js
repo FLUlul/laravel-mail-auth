@@ -1927,19 +1927,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       videogames: []
     };
   },
+  props: {
+    authorized: String
+  },
+  methods: {
+    videogameDelete: function videogameDelete(id) {
+      var _this = this;
+
+      axios.get("/videogame/delete/".concat(id)).then(function (result) {
+        var index = _this.getIndexById(id);
+
+        _this.videogames - _this.videogames.splice(index, 1);
+      })["catch"](function (error) {
+        return console.error(error);
+      });
+    },
+    getIndexById: function getIndexById(id) {
+      for (var i = 0; i < this.videogames.length; i++) {
+        var videogame = this.videogames[i];
+
+        if (videogame.id == id) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+  },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get('/videogames/list').then(function (res) {
-      return _this.videogames = res.data;
+      return _this2.videogames = res.data;
     })["catch"](function (error) {
-      return error.log(error);
+      return console.error(error);
     });
   }
 });
@@ -37536,9 +37565,9 @@ var render = function () {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c(
         "div",
-        { staticClass: "d-flex flex-wrap justify-content-between" },
+        { staticClass: "d-flex flex-wrap justify-content-center" },
         _vm._l(_vm.videogames, function (videogame) {
-          return _c("div", { key: videogame.id, staticClass: "card" }, [
+          return _c("div", { key: videogame.id, staticClass: "card  mx-1" }, [
             _c("div", { staticClass: "card-header" }, [
               _c("h3", [_vm._v(_vm._s(videogame.title))]),
               _vm._v(" "),
@@ -37547,6 +37576,21 @@ var render = function () {
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("h5", [_vm._v("Rating: " + _vm._s(videogame.rating))]),
+              _vm._v(" "),
+              _vm.authorized
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function ($event) {
+                          return _vm.videogameDelete(videogame.id)
+                        },
+                      },
+                    },
+                    [_vm._v("Delete")]
+                  )
+                : _vm._e(),
             ]),
           ])
         }),

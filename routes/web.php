@@ -18,4 +18,5 @@ Route::get('/videogames/logout', 'Auth\LoginController@logout')->name('logout');
 
 
 Route::get('/videogames/list', 'GuestController@gamesList')->name('games-list');
+Route::get('/videogame/delete/{id}', 'HomeController@gameDelete')->name('game-delete');
 
