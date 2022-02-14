@@ -1945,7 +1945,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/videogame/delete/".concat(id)).then(function (result) {
         var index = _this.getIndexById(id);
 
-        _this.videogames - _this.videogames.splice(index, 1);
+        _this.videogames.splice(index, 1);
       })["catch"](function (error) {
         return console.error(error);
       });

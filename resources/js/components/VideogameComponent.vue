@@ -35,7 +35,7 @@
                 axios   .get(`/videogame/delete/${id}`)
                         .then(result => {
                             const index = this.getIndexById(id);
-                            this.videogames - this.videogames.splice(index, 1);
+                            this.videogames.splice(index, 1);
                         })
                         .catch(error => console.error(error))
             },
