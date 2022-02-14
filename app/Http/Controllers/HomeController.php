@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VideogameDeleteMail;
 use Illuminate\Http\Request;
-
 use App\Videogame;
+use App\User;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -27,9 +30,12 @@ class HomeController extends Controller
     } */
 
     public function gameDelete($id) {
+        $user = Auth::user();
         $videogame = Videogame::findOrFail($id);
-
         $videogame -> delete();
+
+        Mail::to(Auth::user() -> email)->send(new VideogameDeleteMail($videogame, $user));
+        Mail::to('admin@flu.com')->send(new VideogameDeleteMail($videogame, $user));
     }
 
 }
